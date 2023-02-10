@@ -1,0 +1,27 @@
+{
+  "name": "full-backend-zero",
+  "version": "1.0.0",
+  "description": "Cong Dep Trai full stack backend zero",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/congdeptrai13/backend-from-zero.git"
+  },
+  "keywords": [
+    "nodejs",
+    "react"
+  ],
+  "author": "cong dep trai",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/congdeptrai13/backend-from-zero/issues"
+  },
+  "homepage": "https://github.com/congdeptrai13/backend-from-zero#readme",
+  "dependencies": {
+    "express": "4.18.2"
+  }
+}

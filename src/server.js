@@ -1,13 +1,13 @@
 require('dotenv').config()
 const express = require('express') //commonjs
 const configViewEngine = require("./config/viewEngine")
-const webRoutes = require("./routes/web")
+const webRoutes = require("./routes/web");
+const apiRoutes = require("./routes/api");
 const connection = require("./config/database")
-
+const mongoose = require("mongoose");
 const app = express()// app express
 const port = process.env.PORT || 8888; //port => hardcode
 const hostname = process.env.HOST_NAME;
-
 
 //config template engine
 configViewEngine(app);
@@ -17,19 +17,17 @@ app.use(express.json()); //for json
 app.use(express.urlencoded({ extended: true })) //for form data
 
 //khai báo route
-app.use("/", webRoutes)
+app.use("/", webRoutes);
+app.use("/v1/api", apiRoutes);
 
 //test connection
-
-
-
-// connection.query(
-//   'select * from Users u',
-//   function (err, results, fields) {
-//     console.log("check results=", results); // results contains rows returned by server
-//   }
-// );
-
-app.listen(port, hostname, () => {
-  console.log(`Example app listening on port ${port}`)
-})
+; (async () => {
+  try {
+    await connection();
+    app.listen(port, hostname, () => {
+      console.log(`backend zero app listening on port ${port}`)
+    })
+  } catch (error) {
+    console.log("error connect to db: ", error);
+  }
+})()

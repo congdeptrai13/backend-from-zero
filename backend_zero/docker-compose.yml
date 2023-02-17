@@ -1,0 +1,29 @@
+version: "3.8"
+services:
+  mongo:
+    container_name: mongo
+    image: ${MONGO_DB_IMAGE}
+    environment:
+      - MONGODB_ROOT_USERNAME=${MONGO_DB_ROOT_USERNAME}
+      - MONGODB_ROOT_PASSWORD=${MONGO_DB_ROOT_PASSWORD}
+      - MONGODB_USERNAME=${MONGO_DB_USERNAME}
+      - MONGODB_PASSWORD=${MONGO_DB_PASSWORD}
+    restart: unless-stopped
+    ports:
+      - "${MONGO_DB_PORT}:27017"
+    volumes:
+      - ./database/db:/bitnami/mongodb
+
+  mongo-express:
+    image: ${MONGO_EXPRESS_IMAGE}
+    container_name: mexpress
+    environment:
+      - ME_CONFIG_MONGODB_ENABLE_ADMIN=${WEB_MONGODB_ENABLE_ADMIN}
+      - ME_CONFIG_MONGODB_URL=${WEB_MONGODB_URL}
+      - ME_CONFIG_BASICAUTH_USERNAME=${WEB_BASICAUTH_USERNAME}
+      - ME_CONFIG_BASICAUTH_PASSWORD=${WEB_BASICAUTH_PASSWORD}
+    depends_on:
+      - mongo
+    restart: unless-stopped
+    ports:
+      - "${WEB_MONGODB_PORT}:8081"
